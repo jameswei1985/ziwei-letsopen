@@ -440,8 +440,8 @@
       </div>
 
       <button id="lineBtn" type="button">加入官方 LINE,取得專屬報告</button>
-      <p class="copied" id="copiedMsg">✓ 你的命盤摘要與開店資料已複製!加入 LINE 後直接「貼上」傳送給我們即可。</p>
-      <p class="flow-hint">流程:按下按鈕 → 系統複製你的命盤摘要 → 開啟開吧官方 LINE → 貼上送出 → 專人與你確認報告內容與費用。</p>
+      <p class="copied" id="copiedMsg">✓ 資料已備好!LINE 開啟後:① 送出自動帶入的訊息 → ② 長按輸入框「貼上」,把完整資料傳給我們。</p>
+      <p class="flow-hint">流程:按下按鈕 → 開啟開吧官方 LINE(訊息自動帶入)→ 送出 → 專人與你確認報告內容與費用。</p>
     </div>
   </section>
 </div>
@@ -710,6 +710,7 @@
 
   // ── 進階報告表單 ──
   const LINE_URL = 'https://lin.ee/TRD94vd';
+  const LINE_OA_ID = 'letsopen'; // 官方帳號 ID(不含 @)
 
   document.getElementById('stageRow').addEventListener('click', e=>{
     if(!e.target.classList.contains('chip')) return;
@@ -758,13 +759,15 @@
       '生辰:' + (s.birth||'') + '\n' +
       '身宮:' + (s.body||'') + '/命宮:' + (s.ming||'') + '/官祿:' + (s.guan||'') + '/財帛:' + (s.cai||'') + '\n' +
       '五行局:' + (s.wuxing||'') + '/命格:' + (s.pattern||'');
-    navigator.clipboard.writeText(msg).then(()=>{
-      document.getElementById('copiedMsg').style.display = 'block';
-      setTimeout(()=>{ window.open(LINE_URL, '_blank'); }, 600);
-    }).catch(()=>{
-      alert('請手動複製以下內容,加入 LINE 後貼上:\n\n' + msg);
-      window.open(LINE_URL, '_blank');
-    });
+    const shortMsg =
+      '【紫微開店盤・報告申請】' +
+      '稱呼:' + v('uName') + '/階段:' + stage +
+      '/命格:' + (s.pattern||'') + '/生辰:' + (s.birth||'').split('(')[0] +
+      '(完整資料已複製,馬上貼給你們!)';
+    const oaUrl = 'https://line.me/R/oaMessage/%40' + LINE_OA_ID + '/?' + encodeURIComponent(shortMsg);
+    navigator.clipboard.writeText(msg).catch(()=>{});
+    document.getElementById('copiedMsg').style.display = 'block';
+    setTimeout(()=>{ window.open(oaUrl, '_blank'); }, 500);
   });
 
   document.getElementById('btn').addEventListener('click', render);
