@@ -418,6 +418,10 @@
           <textarea id="qIntro" placeholder="例:OO食堂,台式簡餐,開兩年半"></textarea>
         </div>
         <div style="margin-bottom:14px">
+          <label>店的地點或商圈</label>
+          <input type="text" id="qWhere" placeholder="例:新竹東區,巨城附近">
+        </div>
+        <div style="margin-bottom:14px">
           <label>目前平均月營業額</label>
           <select id="qRev">
             <option>20 萬以下</option><option>20–50 萬</option>
@@ -731,6 +735,7 @@
     let biz;
     if(isPost){
       biz = '自我介紹/店況:' + v('qIntro') + '\n' +
+            '地點/商圈:' + v('qWhere') + '\n' +
             '月營業額:' + document.getElementById('qRev').value + '\n' +
             '前三名商品:' + v('qTop3') + '\n' +
             '最想解決:' + v('qPain');
