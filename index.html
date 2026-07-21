@@ -702,6 +702,8 @@
     document.getElementById('upsell').hidden = false;
     window.__chartSummary = {
       birth: a.solarDate+'('+a.lunarDate+')',
+      hourLabel: document.getElementById('hour').selectedOptions[0].textContent,
+      gender: document.getElementById('gender').value,
       body: bodyKey||'', ming: m.list.join('')||'空宮',
       guan: g.list.join('')||'空宮', cai: c.list.join('')||'空宮',
       wuxing: a.fiveElementsClass, pattern: mingName || '—'
@@ -756,7 +758,7 @@
       '稱呼:' + v('uName') + '\n' +
       '階段:' + stage + '\n' + biz + '\n' +
       '──────────\n' +
-      '生辰:' + (s.birth||'') + '\n' +
+      '生辰:' + (s.birth||'') + ' ' + (s.hourLabel||'') + '/' + (s.gender||'') + '\n' +
       '身宮:' + (s.body||'') + '/命宮:' + (s.ming||'') + '/官祿:' + (s.guan||'') + '/財帛:' + (s.cai||'') + '\n' +
       '五行局:' + (s.wuxing||'') + '/命格:' + (s.pattern||'');
     const oaUrl = 'https://line.me/R/oaMessage/%40' + LINE_OA_ID + '/?' + encodeURIComponent(msg);
