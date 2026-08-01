@@ -354,10 +354,193 @@
   <section class="upsell" id="upsell" hidden>
     <h2>你的專屬開店命盤報告</h2>
     <p class="pitch">由開吧創辦人 James 親自結合你的命盤與<b>實際開店狀況</b>,產出一對一報告:適合的店型與定位、資金與預備金策略、大限流年的<b>展店時機</b>、以及最該避開的坑。留下你的狀況,加入官方 LINE 完成後續。</p>
-    <div style="text-align:center;padding:26px 10px 18px">
-      <div style="font-family:var(--serif);font-weight:900;font-size:26px;letter-spacing:.25em;color:var(--gold);margin-bottom:10px">目前已額滿</div>
-      <div style="font-size:15px;color:rgba(247,242,231,.85);letter-spacing:.1em;margin-bottom:14px">感謝大家的支持!</div>
-      <div style="font-size:12.5px;color:rgba(247,242,231,.45);line-height:2">下一波名額開放,會在開吧的頻道與社群公告。</div>
+    <div class="uform">
+      <div>
+        <label>怎麼稱呼你</label>
+        <input type="text" id="uName" placeholder="例:陳小姐 / Kevin">
+      </div>
+      <div>
+        <label>目前階段</label>
+        <div class="stage-row" id="stageRow">
+          <button type="button" class="chip on" data-v="還沒開店" data-form="pre">還沒開店</button>
+          <button type="button" class="chip" data-v="已開店" data-form="post">已開店</button>
+        </div>
+      </div>
+
+      <div id="formPre">
+        <div style="margin-bottom:14px">
+          <label>介紹一下你自己,還有為什麼想開這間店</label>
+          <textarea id="pWhy" placeholder="例:做了八年行政主廚,想開一間自己的店,證明健康餐也可以好吃"></textarea>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>想開什麼類型的店</label>
+          <input type="text" id="pType" placeholder="例:健康餐盒 / 日式咖哩 / 手搖飲">
+        </div>
+        <div style="margin-bottom:14px">
+          <label>預計什麼時候開店</label>
+          <select id="pWhen">
+            <option>3 個月內</option><option>半年內</option>
+            <option>一年內</option><option>還在想</option>
+          </select>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>你的餐飲經驗</label>
+          <div class="stage-row" style="flex-wrap:wrap" id="pExp">
+            <button type="button" class="chip on" data-v="完全素人">完全素人</button>
+            <button type="button" class="chip" data-v="曾在餐飲業工作">曾在餐飲業工作</button>
+            <button type="button" class="chip" data-v="現在就是餐飲人">現在就是餐飲人</button>
+            <button type="button" class="chip" data-v="家裡就是開店的">家裡就是開店的</button>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>創業形式</label>
+          <div class="stage-row" style="flex-wrap:wrap" id="pMode">
+            <button type="button" class="chip on" data-v="辭職全職投入">辭職全職投入</button>
+            <button type="button" class="chip" data-v="先兼職試水溫">先兼職試水溫</button>
+            <button type="button" class="chip" data-v="退休第二人生">退休第二人生</button>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>預估投入預算</label>
+          <select id="pBudget">
+            <option>100 萬以內</option><option>100–300 萬</option>
+            <option>300–500 萬</option><option>500 萬以上</option><option>還不確定</option>
+          </select>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>這筆預算,有含至少 6 個月的生活預備金嗎?</label>
+          <div class="stage-row" style="flex-wrap:wrap" id="pReserve">
+            <button type="button" class="chip" data-v="已含6個月生活費">已含</button>
+            <button type="button" class="chip" data-v="未含">未含</button>
+            <button type="button" class="chip on" data-v="還沒算過">還沒算過</button>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>預計開店地點或商圈</label>
+          <input type="text" id="pWhere" placeholder="例:台中北屯,靠近學區">
+        </div>
+        <div style="margin-bottom:14px">
+          <label>團隊</label>
+          <div class="stage-row" style="flex-wrap:wrap" id="teamRow">
+            <button type="button" class="chip on" data-v="自己來">自己來</button>
+            <button type="button" class="chip" data-v="跟家人一起">跟家人一起</button>
+            <button type="button" class="chip" data-v="有合夥人">有合夥人</button>
+            <button type="button" class="chip" data-v="已有員工">已有員工</button>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>你觀察到的競爭對手或參考品牌(選填)</label>
+          <input type="text" id="pComp" placeholder="例:商圈裡有兩間連鎖健康餐">
+        </div>
+        <div>
+          <label>你想像中的品牌特色(選填)</label>
+          <input type="text" id="pBrand" placeholder="例:主打低 GI、給健身族群">
+        </div>
+      </div>
+
+      <div id="formPost" style="display:none">
+        <div style="margin-bottom:14px">
+          <label>介紹一下你自己和你的店(店名、故事)</label>
+          <textarea id="qIntro" placeholder="例:OO食堂,夫妻倆從市場攤位做起"></textarea>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>開店多久了</label>
+          <div class="stage-row" style="flex-wrap:wrap" id="qYears">
+            <button type="button" class="chip on" data-v="未滿1年">未滿1年</button>
+            <button type="button" class="chip" data-v="1–3年">1–3年</button>
+            <button type="button" class="chip" data-v="3–5年">3–5年</button>
+            <button type="button" class="chip" data-v="5–10年">5–10年</button>
+            <button type="button" class="chip" data-v="10年以上">10年以上</button>
+            <button type="button" class="chip" data-v="二代接班">二代接班</button>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>店的類型</label>
+          <div class="stage-row" style="flex-wrap:wrap" id="qCat">
+            <button type="button" class="chip on" data-v="早餐早午餐">早餐早午餐</button>
+            <button type="button" class="chip" data-v="咖啡甜點">咖啡甜點</button>
+            <button type="button" class="chip" data-v="簡餐定食">簡餐定食</button>
+            <button type="button" class="chip" data-v="火鍋燒烤">火鍋燒烤</button>
+            <button type="button" class="chip" data-v="小吃攤販">小吃攤販</button>
+            <button type="button" class="chip" data-v="手搖飲品">手搖飲品</button>
+            <button type="button" class="chip" data-v="餐酒館">餐酒館</button>
+            <button type="button" class="chip" data-v="加盟店">加盟店</button>
+            <button type="button" class="chip" data-v="其他">其他</button>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>地點/商圈</label>
+          <input type="text" id="qWhere" placeholder="例:高雄楠梓,火車站附近">
+        </div>
+        <div style="margin-bottom:14px">
+          <label>目前平均月營業額</label>
+          <select id="qRev">
+            <option>20 萬以下</option><option>20–50 萬</option>
+            <option>50–100 萬</option><option>100 萬以上</option><option>先不透露</option>
+          </select>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>平均客單價</label>
+          <div class="stage-row" style="flex-wrap:wrap" id="qPrice">
+            <button type="button" class="chip on" data-v="100 元內">100 元內</button>
+            <button type="button" class="chip" data-v="100–200">100–200</button>
+            <button type="button" class="chip" data-v="200–400">200–400</button>
+            <button type="button" class="chip" data-v="400–800">400–800</button>
+            <button type="button" class="chip" data-v="800 以上">800 以上</button>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>經營型態</label>
+          <div class="stage-row" style="flex-wrap:wrap" id="qOwn">
+            <button type="button" class="chip on" data-v="一人獨資">一人獨資</button>
+            <button type="button" class="chip" data-v="夫妻或伴侶">夫妻或伴侶</button>
+            <button type="button" class="chip" data-v="家人合夥">家人合夥</button>
+            <button type="button" class="chip" data-v="朋友合夥">朋友合夥</button>
+            <button type="button" class="chip" data-v="加盟品牌">加盟品牌</button>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>團隊規模(含自己)</label>
+          <div class="stage-row" style="flex-wrap:wrap" id="qStaff">
+            <button type="button" class="chip on" data-v="只有自己">只有自己</button>
+            <button type="button" class="chip" data-v="2–3人">2–3人</button>
+            <button type="button" class="chip" data-v="4–6人">4–6人</button>
+            <button type="button" class="chip" data-v="7人以上">7人以上</button>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>賣最好的前三名商品</label>
+          <input type="text" id="qTop3" placeholder="例:招牌雞腿飯、麻油麵線、冬瓜檸檬">
+        </div>
+        <div style="margin-bottom:14px">
+          <label>現在最想解決的問題(最多選 2 個)</label>
+          <div class="stage-row" style="flex-wrap:wrap" id="qPain">
+            <button type="button" class="chip" data-v="來客數">來客數</button>
+            <button type="button" class="chip" data-v="客單價">客單價</button>
+            <button type="button" class="chip" data-v="成本與獲利">成本與獲利</button>
+            <button type="button" class="chip" data-v="找不到人">找不到人</button>
+            <button type="button" class="chip" data-v="訓練與留任">訓練與留任</button>
+            <button type="button" class="chip" data-v="行銷曝光">行銷曝光</button>
+            <button type="button" class="chip" data-v="菜單產品">菜單產品</button>
+            <button type="button" class="chip" data-v="展店擴張">展店擴張</button>
+            <button type="button" class="chip" data-v="轉型改造">轉型改造</button>
+            <button type="button" class="chip" data-v="接班傳承">接班傳承</button>
+            <button type="button" class="chip" data-v="店面租約">店面租約</button>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <label>想多說一點?(選填)</label>
+          <textarea id="qPainNote" placeholder="例:漲價怕客人跑 / 員工教會就離職…"></textarea>
+        </div>
+        <div>
+          <label>店名或 IG / Google 地圖連結(選填,讓老師先看看你的門面)</label>
+          <input type="text" id="qLink" placeholder="例:@my_shop 或 Google 地圖連結">
+        </div>
+      </div>
+
+      <button id="lineBtn" type="button">送出資料,前往開吧官方 LINE</button>
+      <p class="copied" id="copiedMsg">✓ 資料已備份到剪貼簿!若 LINE 沒有自動帶入訊息,直接「貼上」傳送即可。</p>
+      <p class="flow-hint">流程:按下按鈕 → 開啟開吧官方 LINE(資料自動帶入)→ 按送出 → 於 LINE 內選購方案。</p>
     </div>
   </section>
 </div>
@@ -630,6 +813,81 @@
   const LINE_URL = 'https://lin.ee/TRD94vd';
   const LINE_OA_ID = 'letsopen'; // 官方帳號 ID(不含 @)
 
+  document.getElementById('stageRow').addEventListener('click', e=>{
+    if(!e.target.classList.contains('chip')) return;
+    document.querySelectorAll('#stageRow .chip').forEach(b=>b.classList.remove('on'));
+    e.target.classList.add('on');
+    const isPost = e.target.dataset.form === 'post';
+    document.getElementById('formPre').style.display = isPost ? 'none' : 'block';
+    document.getElementById('formPost').style.display = isPost ? 'block' : 'none';
+  });
+  ['pExp','pMode','pReserve','teamRow','qYears','qCat','qPrice','qOwn','qStaff'].forEach(id=>{
+    document.getElementById(id).addEventListener('click', e=>{
+      if(!e.target.classList.contains('chip')) return;
+      document.querySelectorAll('#'+id+' .chip').forEach(b=>b.classList.remove('on'));
+      e.target.classList.add('on');
+    });
+  });
+  document.getElementById('qPain').addEventListener('click', e=>{
+    if(!e.target.classList.contains('chip')) return;
+    if(e.target.classList.contains('on')){ e.target.classList.remove('on'); return; }
+    if(document.querySelectorAll('#qPain .chip.on').length >= 2) return;
+    e.target.classList.add('on');
+  });
+  function v(id){ const el=document.getElementById(id); return (el.value||'').trim() || '(未填)'; }
+  function cv(id){ const el=document.querySelector('#'+id+' .chip.on'); return el ? el.dataset.v : '(未選)'; }
+  function cvm(id){ const a=[...document.querySelectorAll('#'+id+' .chip.on')].map(b=>b.dataset.v); return a.length?a.join('、'):'(未選)'; }
+
+  document.getElementById('lineBtn').addEventListener('click', ()=>{
+    const s = window.__chartSummary || {};
+    const stageBtn = document.querySelector('#stageRow .chip.on');
+    const stage = stageBtn.dataset.v;
+    const isPost = stageBtn.dataset.form === 'post';
+    let biz;
+    if(isPost){
+      biz = '自我介紹/店況:' + v('qIntro') + '\n' +
+            '開店多久:' + cv('qYears') + '\n' +
+            '店的類型:' + cv('qCat') + '\n' +
+            '地點/商圈:' + v('qWhere') + '\n' +
+            '月營業額:' + document.getElementById('qRev').value + '\n' +
+            '客單價:' + cv('qPrice') + '\n' +
+            '經營型態:' + cv('qOwn') + '\n' +
+            '團隊規模:' + cv('qStaff') + '\n' +
+            '前三名商品:' + v('qTop3') + '\n' +
+            '最想解決:' + cvm('qPain') + '\n' +
+            '補充:' + v('qPainNote') + '\n' +
+            '店名/連結:' + v('qLink');
+    } else {
+      biz = '自我介紹/為何開店:' + v('pWhy') + '\n' +
+            '店型:' + v('pType') + '\n' +
+            '預計開店:' + document.getElementById('pWhen').value + '\n' +
+            '餐飲經驗:' + cv('pExp') + '\n' +
+            '創業形式:' + cv('pMode') + '\n' +
+            '預算:' + document.getElementById('pBudget').value + '\n' +
+            '預備金:' + cv('pReserve') + '\n' +
+            '地點/商圈:' + v('pWhere') + '\n' +
+            '團隊:' + cv('teamRow') + '\n' +
+            '競爭對手:' + v('pComp') + '\n' +
+            '品牌特色:' + v('pBrand');
+    }
+    const msg =
+      '【紫微開店盤・專屬報告申請】\n' +
+      '稱呼:' + v('uName') + '\n' +
+      '階段:' + stage + '\n' + biz + '\n' +
+      '──────────\n' +
+      '生辰:' + (s.birth||'') + '\n' +
+      '身宮:' + (s.body||'') + '/命宮:' + (s.ming||'') + '/官祿:' + (s.guan||'') + '/財帛:' + (s.cai||'') + '\n' +
+      '五行局:' + (s.wuxing||'') + '/命格:' + (s.pattern||'');
+    const oaUrl = 'https://line.me/R/oaMessage/%40letsopen/?' + encodeURIComponent(msg);
+    const go = ()=>{
+      document.getElementById('copiedMsg').style.display = 'block';
+      setTimeout(()=>{ window.open(oaUrl, '_blank'); }, 500);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(msg).then(go).catch(go);
+    } else { go(); }
+  });
+  
   document.getElementById('btn').addEventListener('click', render);
 })();
 </script>
