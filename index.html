@@ -356,7 +356,7 @@
     <p class="pitch">由開吧創辦人 James 親自結合你的命盤與<b>實際開店狀況</b>,產出一對一報告:適合的店型與定位、資金與預備金策略、大限流年的<b>展店時機</b>、以及最該避開的坑。留下你的狀況,加入官方 LINE 完成後續。</p>
     <div class="uform">
       <div>
-        <label>怎麼稱呼你</label>
+        <label>怎麼稱呼你 <span style="color:#C3272B">*</span></label>
         <input type="text" id="uName" placeholder="例:陳小姐 / Kevin">
       </div>
       <div>
@@ -369,11 +369,11 @@
 
       <div id="formPre">
         <div style="margin-bottom:14px">
-          <label>介紹一下你自己,還有為什麼想開這間店</label>
+          <label>介紹一下你自己,還有為什麼想開這間店 <span style="color:#C3272B">*</span></label>
           <textarea id="pWhy" placeholder="例:做了八年行政主廚,想開一間自己的店,證明健康餐也可以好吃"></textarea>
         </div>
         <div style="margin-bottom:14px">
-          <label>想開什麼類型的店</label>
+          <label>想開什麼類型的店 <span style="color:#C3272B">*</span></label>
           <input type="text" id="pType" placeholder="例:健康餐盒 / 日式咖哩 / 手搖飲">
         </div>
         <div style="margin-bottom:14px">
@@ -416,7 +416,7 @@
           </div>
         </div>
         <div style="margin-bottom:14px">
-          <label>預計開店地點或商圈</label>
+          <label>預計開店地點或商圈 <span style="color:#C3272B">*</span></label>
           <input type="text" id="pWhere" placeholder="例:台中北屯,靠近學區">
         </div>
         <div style="margin-bottom:14px">
@@ -440,7 +440,7 @@
 
       <div id="formPost" style="display:none">
         <div style="margin-bottom:14px">
-          <label>介紹一下你自己和你的店(店名、故事)</label>
+          <label>介紹一下你自己和你的店(店名、故事) <span style="color:#C3272B">*</span></label>
           <textarea id="qIntro" placeholder="例:OO食堂,夫妻倆從市場攤位做起"></textarea>
         </div>
         <div style="margin-bottom:14px">
@@ -469,7 +469,7 @@
           </div>
         </div>
         <div style="margin-bottom:14px">
-          <label>地點/商圈</label>
+          <label>地點/商圈 <span style="color:#C3272B">*</span></label>
           <input type="text" id="qWhere" placeholder="例:高雄楠梓,火車站附近">
         </div>
         <div style="margin-bottom:14px">
@@ -509,11 +509,11 @@
           </div>
         </div>
         <div style="margin-bottom:14px">
-          <label>賣最好的前三名商品</label>
+          <label>賣最好的前三名商品 <span style="color:#C3272B">*</span></label>
           <input type="text" id="qTop3" placeholder="例:招牌雞腿飯、麻油麵線、冬瓜檸檬">
         </div>
         <div style="margin-bottom:14px">
-          <label>現在最想解決的問題(最多選 2 個)</label>
+          <label>現在最想解決的問題(最多選 2 個) <span style="color:#C3272B">*</span></label>
           <div class="stage-row" style="flex-wrap:wrap" id="qPain">
             <button type="button" class="chip" data-v="來客數">來客數</button>
             <button type="button" class="chip" data-v="客單價">客單價</button>
@@ -539,7 +539,7 @@
       </div>
 
       <button id="lineBtn" type="button">送出資料,前往開吧官方 LINE</button>
-      <p class="copied" id="copiedMsg">✓ 資料已備份到剪貼簿!若 LINE 沒有自動帶入訊息,直接「貼上」傳送即可。</p>
+      <p class="copied" id="copiedMsg">✓ 已開啟 LINE,資料會自動帶入輸入框,按送出即可。若沒有帶入,資料已複製好,直接「貼上」就行。</p>
       <p class="flow-hint">流程:按下按鈕 → 開啟開吧官方 LINE(資料自動帶入)→ 按送出 → 於 LINE 內選購方案。</p>
     </div>
   </section>
@@ -843,6 +843,18 @@
     const stageBtn = document.querySelector('#stageRow .chip.on');
     const stage = stageBtn.dataset.v;
     const isPost = stageBtn.dataset.form === 'post';
+    if(!s.birth){ alert('請先在上方輸入生辰、完成排盤,再送出資料'); return; }
+    const need = isPost
+      ? [['uName','稱呼'],['qIntro','自我介紹/店況'],['qWhere','地點/商圈'],['qTop3','前三名商品']]
+      : [['uName','稱呼'],['pWhy','自我介紹/為何開店'],['pType','店型'],['pWhere','地點/商圈']];
+    const miss = [];
+    need.forEach(pair=>{
+      const el = document.getElementById(pair[0]);
+      el.style.borderColor = '';
+      if(!(el.value||'').trim()){ miss.push(pair[1]); el.style.borderColor = '#C3272B'; }
+    });
+    if(isPost && document.querySelectorAll('#qPain .chip.on').length === 0){ miss.push('最想解決的問題(至少選 1 個)'); }
+    if(miss.length){ alert('還有必填欄位沒完成:\n' + miss.join('、')); return; }
     let biz;
     if(isPost){
       biz = '自我介紹/店況:' + v('qIntro') + '\n' +
@@ -878,13 +890,20 @@
       '生辰:' + (s.birth||'') + '\n' +
       '身宮:' + (s.body||'') + '/命宮:' + (s.ming||'') + '/官祿:' + (s.guan||'') + '/財帛:' + (s.cai||'') + '\n' +
       '五行局:' + (s.wuxing||'') + '/命格:' + (s.pattern||'');
-    const oaUrl = 'https://line.me/R/oaMessage/%40letsopen/?' + encodeURIComponent(msg);
+    const LINE_ADD = 'https://lin.ee/TRD94vd';
+    const encoded = encodeURIComponent(msg);
+    const target = encoded.length < 6000
+      ? 'https://line.me/R/oaMessage/%40letsopen/?' + encoded
+      : LINE_ADD;
     const go = ()=>{
       document.getElementById('copiedMsg').style.display = 'block';
-      setTimeout(()=>{ window.open(oaUrl, '_blank'); }, 500);
+      setTimeout(()=>{ window.open(target, '_blank'); }, 500);
     };
     if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(msg).then(go).catch(go);
+      navigator.clipboard.writeText(msg).then(go).catch(()=>{
+        alert('請手動複製以下內容,進入 LINE 後貼上:\n\n' + msg);
+        window.open(LINE_ADD, '_blank');
+      });
     } else { go(); }
   });
   
