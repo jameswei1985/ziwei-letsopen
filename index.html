@@ -892,11 +892,16 @@
       '五行局:' + (s.wuxing||'') + '/命格:' + (s.pattern||'');
     const LINE_ADD = 'https://lin.ee/TRD94vd';
     const encoded = encodeURIComponent(msg);
-    const target = encoded.length < 6000
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const target = (isMobile && encoded.length < 6000)
       ? 'https://line.me/R/oaMessage/%40letsopen/?' + encoded
       : LINE_ADD;
+    const tip = document.getElementById('copiedMsg');
+    tip.textContent = isMobile
+      ? '✓ 已開啟 LINE,資料會自動帶入輸入框,按送出即可。若沒有帶入,資料已複製好,直接「貼上」就行。'
+      : '✓ 資料已複製!請開啟電腦版 LINE 搜尋 @letsopen(或掃描頁面 QR code 加好友),在聊天室「貼上」傳送給我們即可。';
     const go = ()=>{
-      document.getElementById('copiedMsg').style.display = 'block';
+      tip.style.display = 'block';
       setTimeout(()=>{ window.open(target, '_blank'); }, 500);
     };
     if(navigator.clipboard && navigator.clipboard.writeText){
