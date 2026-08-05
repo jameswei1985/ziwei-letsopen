@@ -803,8 +803,10 @@
       birth: a.solarDate+'('+a.lunarDate+')',
       hourLabel: document.getElementById('hour').selectedOptions[0].textContent,
       gender: document.getElementById('gender').value,
-      body: bodyKey||'', ming: m.list.join('')||'空宮',
-      guan: g.list.join('')||'空宮', cai: c.list.join('')||'空宮',
+      body: bodyKey||'',
+      ming: (m.borrowed ? '空宮(借'+m.list.join('')+')' : (m.list.join('')||'空宮')),
+      guan: (g.borrowed ? '空宮(借'+g.list.join('')+')' : (g.list.join('')||'空宮')),
+      cai: (c.borrowed ? '空宮(借'+c.list.join('')+')' : (c.list.join('')||'空宮')),
       wuxing: a.fiveElementsClass, pattern: mingName || '—'
     };
   }
